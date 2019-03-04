@@ -1,5 +1,10 @@
 # Chatbot en Español
 
+## Instructions
+
+- Download dataset nad put it on /data
+- Generate data with pre-processing.py
+
 ## Credits
 
 - https://pytorch.org/tutorials/beginner/chatbot_tutorial.html
