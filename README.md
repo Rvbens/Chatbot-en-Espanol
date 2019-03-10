@@ -18,13 +18,18 @@ For a detail explanation of the processing see the notebook.
 
 ## TODO
 
+- turn unk on
+- check Voc w2i then i2w to see if is the same
+- longer sequences ~30/50
+- check puntuaion processing, add pyotrch dataet
+- multi thread data generation
 - generator from data pre-processing to feed data to the training
 - re train model with more data
 - tokenization/lemmanization?
 - use trained emmbedings? glove word2ve ulmfit bert | visualize embeding
 - EVAL: acentos en los inputs?
 - implementar one cycle y ver cuanto dura
-- utilizar la propia estructura del dataset para sacar mas rendimiento en la evaluacion del modelo. "\n" y guion como comienzo de intercambio a la gpt-2 con los TL-DR. Comparar resultados(subjetivos) con y sin.
+- utilizar la propia estructura del dataset para sacar mas rendimiento en la evaluacion del modelo. "\n" y guion como comienzo de intercambio a la gpt-2 con los TL-DR. Comparar resultados(subjetivos) con y sin. add to README DESCRIPTION THAT WE ARE USING THIS
 - add enviroment.yml
 - add link to downlaod model
 - add script to run chatbot on terminal
