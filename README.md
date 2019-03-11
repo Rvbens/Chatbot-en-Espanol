@@ -11,6 +11,10 @@
 
 For a detail explanation of the processing see the notebook.
 
+## Model description
+
+Seq2seq with Loung attention.
+
 ## Credits
 
 - Pytorch tutorial, for the base of the model. [Link](https://pytorch.org/tutorials/beginner/chatbot_tutorial.html)
@@ -18,18 +22,28 @@ For a detail explanation of the processing see the notebook.
 
 ## TODO
 
-- turn unk on
-- check Voc w2i then i2w to see if is the same
-- longer sequences ~30/50
-- check puntuaion processing, add pyotrch dataet
-- multi thread data generation
-- generator from data pre-processing to feed data to the training
-- re train model with more data
-- tokenization/lemmanization?
-- use trained emmbedings? glove word2ve ulmfit bert | visualize embeding
-- EVAL: acentos en los inputs?
-- implementar one cycle y ver cuanto dura
-- utilizar la propia estructura del dataset para sacar mas rendimiento en la evaluacion del modelo. "\n" y guion como comienzo de intercambio a la gpt-2 con los TL-DR. Comparar resultados(subjetivos) con y sin. add to README DESCRIPTION THAT WE ARE USING THIS
-- add enviroment.yml
-- add link to downlaod model
-- add script to run chatbot on terminal
+- Data processing:
+  - multi thread data generation
+  - add trim by voc size
+  - longer sequences ~30/50?
+  - add pyotrch dataset
+  - tokenization/lemmanization?
+- Model
+  - Add [Output embedding](http://www.aclweb.org/anthology/E17-2025)
+  - Add [Negative sampling](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf)
+  - Add dropout to output layer
+  - Transformer
+- Train
+  - generator from data pre-processing to feed data to the training
+  - re train model with more data
+  - use trained emmbedings? glove word2ve ulmfit bert | visualize embeding
+  - implementar one cycle y ver cuanto dura
+  - utilizar la propia estructura del dataset para sacar mas rendimiento en la evaluacion del modelo. "\n" y guion como comienzo de intercambio a la gpt-2 con los TL-DR. Comparar resultados(subjetivos) con y sin. add to README DESCRIPTION THAT WE ARE USING THIS
+  - add enviroment.yml
+  - add link to downlaod model
+  - add script to run chatbot on terminal
+- Evaluation
+  - acentos en los inputs?
+  - evaluation script for console
+  - port to app/slack
+  - t-sne of the embedding
