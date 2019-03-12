@@ -11,6 +11,6 @@ MIN_COUNT  = 10         # Minimum word count threshold for trimming
 WITH_UNK   = True      # Swap words not in voc for unk token, instead of deleting sentence
 
 corpus = "./data/es.txt"
-corpus_name = "OpenSubtitle"
+corpus_name = "OpenSubtitle_PUNCT3"
 if WITH_UNK: corpus_name += "_UNK"
 save_dir = os.path.join("data", corpus_name)
