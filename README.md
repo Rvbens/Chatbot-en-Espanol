@@ -50,4 +50,5 @@ Seq2seq with Loung attention.
   - evaluation script for console
   - port to app/slack
   - t-sne of the embedding
-- add script to run chatbot on terminal
+  - add script to run chatbot on terminal
+  - reciclar el hidden en las conversaciones
