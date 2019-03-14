@@ -5,8 +5,8 @@ from slackclient import SlackClient
 from load_bot import evaluateOneInput
 
 # instantiate Slack client
-#slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
-slack_client = SlackClient("xoxb-510844246869-577115989970-FK1zv9eqtP2rdheFUGnHou2i")
+slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
+
 # starterbot's user ID in Slack: value is assigned after the bot starts up
 starterbot_id = None
 
@@ -42,7 +42,7 @@ def handle_command(command, channel):
         Executes bot command if the command is known
     """
     # Finds and executes the given command, filling in response
-    response = evaluateOneInput(encoder, decoder, searcher, voc, command)
+    response = evaluateOneInput(command)
 
     # Sends the response back to the channel
     slack_client.api_call(

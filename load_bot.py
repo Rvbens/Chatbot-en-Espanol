@@ -246,16 +246,6 @@ def evaluate(encoder, decoder, searcher, voc, sentence, max_length=MAX_LENGTH):
     return decoded_words
 
 
-def evaluateInput(encoder, decoder, searcher, voc, input_sentence):
-    input_sentence = process_punct(input_sentence.encode())
-    # Evaluate sentence
-    output_words = evaluate(encoder, decoder, searcher, voc, input_sentence)
-    # Format and print response sentence
-    output_words[:] = [x for x in output_words if not (x == 'EOS' or x == 'PAD')]
-    raw_ans = ' '.join(output_words)
-    ans = reformatString(raw_ans)
-    return ans
-
 # Set dropout layers to eval mode
 encoder.eval()
 decoder.eval()
@@ -265,4 +255,29 @@ searcher = GreedySearchDecoder(encoder, decoder)
 
 
 def evaluateOneInput(input_sentence):
-    return evaluateInput(encoder, decoder, searcher, voc, input_sentence)
+    input_sentence = process_punct(input_sentence.encode())
+    # Evaluate sentence
+    output_words = evaluate(encoder, decoder, searcher, voc, input_sentence)
+    # Format and print response sentence
+    output_words[:] = [x for x in output_words if not (x == 'EOS' or x == 'PAD')]
+    raw_ans = ' '.join(output_words)
+    ans = reformatString(raw_ans)
+    return ans
+
+def evaluateCycle():
+    print("Enter q or quit to exit")
+    input_sentence = ''
+    while(1):
+        # Get input sentence
+        input_sentence = input('> ')
+        # Check if it is quit case
+        if input_sentence == 'q' or input_sentence == 'quit': break
+        # Normalize sentence
+        input_sentence = process_punct(input_sentence.encode())
+        # Evaluate sentence
+        output_words = evaluate(encoder, decoder, searcher, voc, input_sentence)
+        # Format and print response sentence
+        output_words[:] = [x for x in output_words if not (x == 'EOS' or x == 'PAD')]
+        raw_ans = ' '.join(output_words)
+        ans = reformatString(raw_ans)
+        print('Bot:',ans)
