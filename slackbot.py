@@ -2,6 +2,7 @@ import os
 import time
 import re
 from slackclient import SlackClient
+from pre_processing import Voc
 from load_bot import evaluateOneInput
 
 # instantiate Slack client

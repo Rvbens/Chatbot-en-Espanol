@@ -32,8 +32,9 @@ Seq2seq with Loung attention.
   - add trim by voc size
   - longer sequences ~30/50?
   - add pyotrch dataset
-  - tokenization/lemmanization?
+  - tokenization/lemmanization?. [SentencePiece](https://github.com/google/sentencepiece)
   - juntar pares con secuencias de longitud parecida para disminuir los PAD_TOKEN en los batches y por lo tanto disminuir calculos malgastados.
+  - [Unkown words](https://arxiv.org/pdf/1410.8206.pdf)
 - Model
   - Add [Output embedding](http://www.aclweb.org/anthology/E17-2025)
   - Add [Negative sampling](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf)
