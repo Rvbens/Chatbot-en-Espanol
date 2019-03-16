@@ -13,4 +13,4 @@ WITH_UNK   = True      # Swap words not in voc for unk token, instead of deletin
 corpus = "./data/es.txt"
 corpus_name = "OpenSubtitle_P3_500k_WT"
 if WITH_UNK: corpus_name += "_UNK"
-save_dir = os.path.join("data", corpus_name)ª
+save_dir = os.path.join("data", corpus_name)
