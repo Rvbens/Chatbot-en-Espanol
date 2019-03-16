@@ -18,7 +18,11 @@ For a detailed explanation of the processing see the notebook.
 
 ## Model description
 
-Seq2seq with Loung attention.
+Seq2seq with Loung attention. Features:
+
+- [Output embedding](http://www.aclweb.org/anthology/E17-2025)
+
+![Weight tying result](img/wt.png?raw=true)
 
 ## Credits
 
@@ -36,7 +40,6 @@ Seq2seq with Loung attention.
   - juntar pares con secuencias de longitud parecida para disminuir los PAD_TOKEN en los batches y por lo tanto disminuir calculos malgastados.
   - [Unkown words](https://arxiv.org/pdf/1410.8206.pdf)
 - Model
-  - Add [Output embedding](http://www.aclweb.org/anthology/E17-2025)
   - Add [Negative sampling](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf)
   - Add dropout to output layer
   - Transformer
