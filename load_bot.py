@@ -8,7 +8,7 @@ from settings import *
 
 USE_CUDA = torch.cuda.is_available()
 device = torch.device("cuda" if USE_CUDA else "cpu")
-
+print(f'Loading: {save_dir}')
 with open(save_dir + '/voc.pkl',  'rb') as f:
     voc   = pickle.load(f)
     
@@ -82,7 +82,7 @@ class Attn(torch.nn.Module):
         return F.softmax(attn_energies, dim=1).unsqueeze(1)
 
 class LuongAttnDecoderRNN(nn.Module):
-    def __init__(self, attn_model, embedding, hidden_size, output_size, n_layers=1, dropout=0.1):
+    def __init__(self, attn_model, embedding, hidden_size, output_size, n_layers=1, dropout=0.1, tie_weights=False):
         super(LuongAttnDecoderRNN, self).__init__()
 
         # Keep for reference
@@ -100,6 +100,9 @@ class LuongAttnDecoderRNN(nn.Module):
         self.out = nn.Linear(hidden_size, output_size)
 
         self.attn = Attn(attn_model, hidden_size)
+
+        if tie_weights:
+            self.out.weight = self.embedding.weight
 
     def forward(self, input_step, last_hidden, encoder_outputs):
         # Note: we run this one step (word) at a time
@@ -144,7 +147,7 @@ embedding = nn.Embedding(voc.num_words, hidden_size)
 
 # Initialize encoder & decoder models
 encoder = EncoderRNN(hidden_size, embedding, encoder_n_layers, dropout)
-decoder = LuongAttnDecoderRNN(attn_model, embedding, hidden_size, voc.num_words, decoder_n_layers, dropout)
+decoder = LuongAttnDecoderRNN(attn_model, embedding, hidden_size, voc.num_words, decoder_n_layers, dropout, TIE_WEIGHTS)
 
 # Use appropriate device
 encoder = encoder.to(device)

@@ -9,8 +9,10 @@ MAX_LENGTH = 20        # Tamaño de las frases
 LINES_USED = 500_000 # Determina el tamaño de la parte de dataset que cogemos
 MIN_COUNT  = 10         # Minimum word count threshold for trimming
 WITH_UNK   = True      # Swap words not in voc for unk token, instead of deleting sentence
+TIE_WEIGHTS= True
 
 corpus = "./data/es.txt"
-corpus_name = "OpenSubtitle_P3_500k_WT"
+corpus_name = "OpenSubtitle_P3_500k"
+if TIE_WEIGHTS: corpus_name += "_WT"
 if WITH_UNK: corpus_name += "_UNK"
 save_dir = os.path.join("data", corpus_name)
