@@ -55,10 +55,10 @@ def handle_command(command, channel):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description='Load a bot to be used on slack')
-    parser.add_argument('--model', metavar='path', default="seq2seq", help='Model to be used')
+    parser.add_argument('--model', metavar='path', default="transformer", help='Model to be used')
     args = parser.parse_args()
     if args.model == 'seq2seq':
-        from load_bot import evaluateOneInput
+        from load_seq2seq import evaluateOneInput
     elif args.model == 'transformer':
         from load_transformer import evaluateOneInput
     else:
