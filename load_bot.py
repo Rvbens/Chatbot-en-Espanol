@@ -8,7 +8,9 @@ from settings import *
 
 USE_CUDA = torch.cuda.is_available()
 device = torch.device("cuda" if USE_CUDA else "cpu")
+save_dir = os.path.join("data", "OpenSubtitle_P3_500k_UNK")
 print(f'Loading: {save_dir}')
+
 with open(save_dir + '/voc.pkl',  'rb') as f:
     voc   = pickle.load(f)
     
@@ -154,10 +156,11 @@ encoder = encoder.to(device)
 decoder = decoder.to(device)
 
 
-# If loading on same machine the model was trained on
-checkpoint = torch.load(loadFilename)
-# If loading a model trained on GPU to CPU
-#checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))+
+if USE_CUDA:
+    checkpoint = torch.load(loadFilename)
+else:
+    checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
+
 encoder.load_state_dict(checkpoint['en'])
 decoder.load_state_dict(checkpoint['de'])
 embedding.load_state_dict(checkpoint['embedding'])
@@ -258,6 +261,7 @@ searcher = GreedySearchDecoder(encoder, decoder)
 
 
 def evaluateOneInput(input_sentence):
+    # Normalize sentence
     input_sentence = process_punct(input_sentence.encode())
     # Evaluate sentence
     output_words = evaluate(encoder, decoder, searcher, voc, input_sentence)
@@ -275,12 +279,5 @@ def evaluateCycle():
         input_sentence = input('> ')
         # Check if it is quit case
         if input_sentence == 'q' or input_sentence == 'quit': break
-        # Normalize sentence
-        input_sentence = process_punct(input_sentence.encode())
-        # Evaluate sentence
-        output_words = evaluate(encoder, decoder, searcher, voc, input_sentence)
-        # Format and print response sentence
-        output_words[:] = [x for x in output_words if not (x == 'EOS' or x == 'PAD')]
-        raw_ans = ' '.join(output_words)
-        ans = reformatString(raw_ans)
+        ans = evaluateOneInput(input_sentence)
         print('Bot:',ans)
