@@ -13,10 +13,10 @@ Seq2seq with Loung attention. For a detailed explanation in spanish you can see 
 - For training:
   1. Download dataset from here [here (2Gb)](http://opus.nlpl.eu/download.php?f=OpenSubtitles/v2018/mono/OpenSubtitles.raw.es.gz ) and put it on /data
   2. Generate data with `python pre_processing.py`. Arguments:
-     - `--lines`: number of lines from the orignial dataset to be processed. Default 2_500_00
-     - `--max_len`: max length of the sentence. Default: 20
-     - `--min_count`: min count of a word to be left of the vocabulary. Default: 5
-  3. Run the training notebook ofr training and evaluation of the model
+     - `--lines`: number of lines from the orignial dataset to be processed. Default 500_00
+     - `--max_len`: max length of the sentence. Default: 40
+     - `--min_count`: min count of a word to be left of the vocabulary. Default: 10
+  3. Run the training notebook for training and evaluating of the model
 
 For a detailed explanation of the processing see the notebook.
 
