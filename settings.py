@@ -12,7 +12,7 @@ WITH_UNK   = True      # Swap words not in voc for unk token, instead of deletin
 TIE_WEIGHTS= False
 
 corpus = "./data/es.txt"
-corpus_name = "Transformer_500k"
+corpus_name = "Sentencepiece_Tfmr_500k"
 if TIE_WEIGHTS: corpus_name += "_WT"
 if WITH_UNK: corpus_name += "_UNK"
 save_dir = os.path.join("data", corpus_name)

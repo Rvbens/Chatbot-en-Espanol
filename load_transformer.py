@@ -3,18 +3,15 @@ import torch.nn as nn
 from torch import optim
 import torch.nn.functional as F
 
-import pickle, random, itertools, os, math, copy
+import pickle, random, itertools, os, math, copy, re
 import numpy as np
 
-from pre_processing import Voc
 from settings import *
-
-import re
-from pre_processing import process_punct, indexesFromSentence
+from pre_processing import Voc, process_punct, indexesFromSentence
 
 USE_CUDA = torch.cuda.is_available()
 device = torch.device("cuda" if USE_CUDA else "cpu")
-save_dir = os.path.join("data", "Transformer_500k_UNK")
+save_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),"data", "Transformer_500k_UNK")
 print(f'Loading: {save_dir}')
 
 with open(save_dir + '/voc.pkl',  'rb') as f:
@@ -23,8 +20,6 @@ with open(save_dir + '/voc.pkl',  'rb') as f:
 with open(save_dir + '/pairs.pkl','rb') as f:
     pairs = pickle.load(f)
     
-with open("./data/loss_log.pkl", 'rb') as f:
-    loss_log = pickle.load(f)
 
 def zeroPadding(l, fillvalue=PAD_token):
     return list(itertools.zip_longest(*l, fillvalue=fillvalue))
