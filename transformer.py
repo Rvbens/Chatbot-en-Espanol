@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 import math, copy
 import numpy as np
-
+from settings import PAD_token
 
 class Embedder(nn.Module):
     def __init__(self, vocab_size, d_model):
@@ -96,8 +96,6 @@ class MultiHeadAttention(nn.Module):
 
         # calculate attention using function we will define next
         scores = attention(q, k, v, self.d_k, mask, self.dropout)
-        print(scores.shape)
-        assert False
         # concatenate heads and put through final linear layer
         concat = scores.transpose(1,2).contiguous().view(bs, -1, self.d_model)
         output = self.out(concat)

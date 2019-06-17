@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-from torch import optim
 
 import pickle, random, itertools, os, math, re
 import numpy as np
@@ -64,8 +63,6 @@ def batch2TrainData(pair_batch):
     inp, lengths = inputVar(input_batch)
     output, mask, max_target_len = outputVar(output_batch)
     return inp, lengths, output, mask, max_target_len
-
-
 
 
 d_model = 512 #original 512
