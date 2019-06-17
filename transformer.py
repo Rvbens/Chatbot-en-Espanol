@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 import math, copy
 import numpy as np
-from settings import PAD_token
+from settings import PAD_token, SOS_token
 
 class Embedder(nn.Module):
     def __init__(self, vocab_size, d_model):
@@ -55,6 +55,7 @@ def create_masks(input_seq, target_seq): #(bs,sl)
     target_msk = (target_seq != PAD_token).unsqueeze(1) #(bs,1, sl)
     size = target_seq.size(1) # get seq_len for matrix
     no_peak_mask = nopeak_mask(size)
+    if target_msk.is_cuda: no_peak_mask=no_peak_mask.cuda()
     target_msk = target_msk & no_peak_mask #(bs, sl, sl)
     return input_msk, target_msk
 
@@ -229,7 +230,12 @@ class Transformer(nn.Module):
         self.encoder = Encoder(src_vocab, d_model, N, heads, dropout)
         self.decoder = Decoder(trg_vocab, d_model, N, heads, dropout)
         self.out = nn.Linear(d_model, trg_vocab)
-    def forward(self, src, trg, src_mask, trg_mask):
+    def forward(self, src, trg=None):
+        if not trg: #create dummy decoder input and move to device
+            trg = torch.empty(src.shape[0],1,dtype=torch.long).fill_(SOS_token)
+            if src.is_cuda: trg=trg.cuda()
+                
+        src_mask,trg_mask = create_masks(src, trg)
         e_outputs = self.encoder(src, src_mask)
         #print("DECODER")
         d_output = self.decoder(trg, e_outputs, src_mask, trg_mask)
