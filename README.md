@@ -9,6 +9,7 @@ Seq2seq. For a detailed explanation in spanish you can see this [blog post](http
 
 Transformer. Features:
 
+- Weight tying
 - Beam search
 
 ## Instructions

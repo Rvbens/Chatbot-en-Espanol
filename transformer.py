@@ -225,11 +225,15 @@ class Decoder(nn.Module):
         return self.norm(x)
     
 class Transformer(nn.Module):
-    def __init__(self, src_vocab, trg_vocab, d_model, N, heads, dropout):
+    def __init__(self, src_vocab, trg_vocab, d_model, N, heads, dropout,tie_weights=False):
         super().__init__()
         self.encoder = Encoder(src_vocab, d_model, N, heads, dropout)
         self.decoder = Decoder(trg_vocab, d_model, N, heads, dropout)
         self.out = nn.Linear(d_model, trg_vocab)
+        
+        if tie_weights:
+            self.out.weight = self.encoder.embed.embed.weight
+        
     def forward(self, src, trg=None):
         if not trg: #create dummy decoder input and move to device
             trg = torch.empty(src.shape[0],1,dtype=torch.long).fill_(SOS_token)
