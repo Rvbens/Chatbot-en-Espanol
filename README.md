@@ -11,6 +11,9 @@ Transformer. Features:
 
 - Weight tying
 - Beam search
+- Quantization: [Pytorch Dynamic Quantization](https://pytorch.org/docs/stable/quantization.html#quantization-workflows). Model size reduced to 41% of the original and 2x inference speed up. Backends suported:
+  - x86 CPUs with AVX2 support or higher (without AVX2 some operations have inefficient implementations)
+  - ARM CPUs (typically found in mobile/embedded devices)
 
 ## Instructions
 

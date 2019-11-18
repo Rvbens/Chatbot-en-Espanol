@@ -1,11 +1,13 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
+import torch.quantization
 
 import pickle, random, itertools, os, math, re
 import numpy as np
 
 from settings import *
-from transformer import Transformer
+from transformer import Transformer, nopeak_mask 
 from pre_processing import Voc, process_punct, indexesFromSentence
 
 torch.set_grad_enabled(False)
@@ -18,8 +20,8 @@ print(f'Loading: {save_dir}')
 with open(save_dir + '/voc.pkl',  'rb') as f:
     voc   = pickle.load(f)
     
-with open(save_dir + '/pairs.pkl','rb') as f:
-    pairs = pickle.load(f)
+#with open(save_dir + '/pairs.pkl','rb') as f:
+    #pairs = pickle.load(f)
     
 
 def zeroPadding(l, fillvalue=PAD_token):
@@ -65,26 +67,32 @@ def batch2TrainData(pair_batch):
     return inp, lengths, output, mask, max_target_len
 
 
-d_model = 512 #original 512
-heads = 8
-N = 6 #original 6
-src_vocab = voc.num_words
-trg_vocab = voc.num_words
-model = Transformer(src_vocab, trg_vocab, d_model, N, heads,0.1)
-model = model.to(device)
+def from_checkpoint(load_quant=False):
+    d_model = 512 #original 512
+    heads = 8
+    N = 6 #original 6
+    src_vocab = voc.num_words
+    trg_vocab = voc.num_words
+    model = Transformer(src_vocab, trg_vocab, d_model, N, heads,0.1)
+    model = model.to(device)
 
+    if load_quant:
+        loadFilename = os.path.join(save_dir, 'checkpoints','transformer_quant_checkpoint.tar')
+        model = torch.quantization.quantize_dynamic(
+            model, {nn.LSTM, nn.Linear}, dtype=torch.qint8
+        )
+    else:
+        loadFilename = os.path.join(save_dir, 'checkpoints','transformer_checkpoint.tar')
 
-loadFilename = os.path.join(save_dir, 'checkpoints','transformer_checkpoint.tar')
+    if USE_CUDA:
+        checkpoint = torch.load(loadFilename)
+    else:
+        checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
 
-if USE_CUDA:
-    checkpoint = torch.load(loadFilename)
-else:
-    checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
-
-model.load_state_dict(checkpoint['params'])
-voc.__dict__ = checkpoint['voc_dict']
-model.eval()
-
+    model.load_state_dict(checkpoint['params'])
+    voc.__dict__ = checkpoint['voc_dict']
+    model.eval()
+    return model
 
 def custom_capitalize(s):
     for i, c in enumerate(s):
@@ -192,7 +200,7 @@ def evaluate(model, searcher, voc, sentence, max_length=MAX_LENGTH):
 
 searcher = beam_search
 
-def evaluateOneInput(input_sentence):
+def evaluateOneInput(input_sentence, model):
     input_sentence = process_punct(input_sentence.encode())
     # Evaluate sentence
     output_words = evaluate(model, searcher, voc, input_sentence)
@@ -203,7 +211,7 @@ def evaluateOneInput(input_sentence):
     return ans
 
 #bot cycle, receive input and outputs answer
-def evaluateCycle():
+def evaluateCycle(model):
     print("Enter q or quit to exit")
     input_sentence = ''
     while(1):
@@ -211,5 +219,5 @@ def evaluateCycle():
         input_sentence = input('> ')
         # Check if it is quit case
         if input_sentence == 'q' or input_sentence == 'quit': break
-        ans = evaluateOneInput(input_sentence)
+        ans = evaluateOneInput(input_sentence,model)
         print('Bot:',ans)
