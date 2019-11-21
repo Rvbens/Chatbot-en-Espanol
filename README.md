@@ -28,7 +28,7 @@ Transformer. Features:
 For a detailed explanation of the processing see the notebook.
 
 - For evaluation:
-  1. Download the parameters for the [seq2seq mode](https://drive.google.com/open?id=1YmAgP_K75znP599HsW4kGlA2e-oeguhX) or the [transformer model](https://drive.google.com/open?id=12u1dOvexsnhKdJAW53ri4PC6gOyvo3ZT) and uncompress on /data
+  1. Download the parameters for the [seq2seq mode](https://drive.google.com/open?id=1YmAgP_K75znP599HsW4kGlA2e-oeguhX), the [full transformer model](https://drive.google.com/open?id=12u1dOvexsnhKdJAW53ri4PC6gOyvo3ZT) or the [quantized transformer model](https://drive.google.com/file/d/1ZE3_AUzJWNvwVXzkvWI_4DS8NgniFhFB/view?usp=sharing) and uncompress on /data
   2. Run the evaluation notebook.
 
 ## Credits

@@ -15,10 +15,9 @@ USE_CUDA = torch.cuda.is_available()
 USE_CUDA = False
 device = torch.device("cuda" if USE_CUDA else "cpu")
 save_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),"data", "Transformer_500k_UNK")
-print(f'Loading: {save_dir}')
 
 with open(save_dir + '/voc.pkl',  'rb') as f:
-    voc   = pickle.load(f)
+    voc  = pickle.load(f)
     
 #with open(save_dir + '/pairs.pkl','rb') as f:
     #pairs = pickle.load(f)
@@ -68,6 +67,7 @@ def batch2TrainData(pair_batch):
 
 
 def from_checkpoint(load_quant=False):
+    print(f'Loading: {save_dir}')
     d_model = 512 #original 512
     heads = 8
     N = 6 #original 6
