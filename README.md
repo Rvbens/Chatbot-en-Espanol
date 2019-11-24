@@ -1,19 +1,24 @@
 # Chatbot en Español
 
+## Introuction
+
+Conversational agent in spanish done with deep learning and a dataset of movies subtitles. If you want to walk directly to the transformer version you can do it [here](https://rubenchaves.com/chatbot).
+
 ## Model description
 
-Seq2seq. For a detailed explanation in spanish you can see this [blog post](https://medium.com/@ruben_onelove/como-hacer-un-chatbot-en-espa%C3%B1ol-y-que-te-trolee-en-el-intento-2a8105d66de8). Features:
+- Seq2seq. For a detailed explanation in spanish you can see this [blog post](https://medium.com/@ruben_onelove/como-hacer-un-chatbot-en-espa%C3%B1ol-y-que-te-trolee-en-el-intento-2a8105d66de8). Features:
 
-- [Loung attention](https://arxiv.org/abs/1508.04025)
-- [Output embedding with wegiht tying](http://www.aclweb.org/anthology/E17-2025)
+  - [Loung attention](https://arxiv.org/abs/1508.04025)
+  - [Output embedding with wegiht tying](http://www.aclweb.org/anthology/E17-2025)
 
-Transformer. Features:
 
-- Weight tying
-- Beam search
-- Quantization: [Pytorch Dynamic Quantization](https://pytorch.org/docs/stable/quantization.html#quantization-workflows). Model size reduced to 41% of the original and 2x inference speed up. Backends suported:
-  - x86 CPUs with AVX2 support or higher (without AVX2 some operations have inefficient implementations)
-  - ARM CPUs (typically found in mobile/embedded devices)
+- Transformer. Features:
+
+  - Weight tying
+  - Beam search
+  - Quantization: [Pytorch Dynamic Quantization](https://pytorch.org/docs/stable/quantization.html#quantization-workflows). Model size reduced to 41% of the original and 2x inference speed up. Backends suported:
+    - x86 CPUs with AVX2 support or higher (without AVX2 some operations have inefficient implementations)
+    - ARM CPUs (typically found in mobile/embedded devices)
 
 ## Instructions
 
