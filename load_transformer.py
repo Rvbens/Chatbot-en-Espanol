@@ -67,6 +67,11 @@ def batch2TrainData(pair_batch):
 
 
 def from_checkpoint(load_quant=False):
+    """Load model with saved parameters
+
+    Args:
+    load_quant: bool. Load the quantized version of the model.
+    """
     print(f'Loading: {save_dir}')
     d_model = 512 #original 512
     heads = 8
@@ -201,6 +206,7 @@ def evaluate(model, searcher, voc, sentence, max_length=MAX_LENGTH):
 searcher = beam_search
 
 def evaluateOneInput(input_sentence, model):
+    """ Give an answer to the input sentence using the model """
     input_sentence = process_punct(input_sentence.encode())
     # Evaluate sentence
     output_words = evaluate(model, searcher, voc, input_sentence)
@@ -212,6 +218,7 @@ def evaluateOneInput(input_sentence, model):
 
 #bot cycle, receive input and outputs answer
 def evaluateCycle(model):
+    """ LContinous loop of inputs and answers"""
     print("Enter q or quit to exit")
     input_sentence = ''
     while(1):
