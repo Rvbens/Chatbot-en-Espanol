@@ -1,8 +1,14 @@
 # Chatbot en Español
 
-## Introuction
+## Introduction
 
 Conversational agent in spanish done with deep learning and a dataset of movies subtitles. If you want to walk directly to the transformer version you can do it [here](https://rubenchaves.com/chatbot).
+
+## Installation
+
+Clone the repository or install with pip:
+
+    pip install spanish_chatbot
 
 ## Model description
 
@@ -33,7 +39,7 @@ Conversational agent in spanish done with deep learning and a dataset of movies 
 For a detailed explanation of the processing see the notebook.
 
 - For evaluation:
-  1. Download the parameters for the [seq2seq mode](https://drive.google.com/open?id=1YmAgP_K75znP599HsW4kGlA2e-oeguhX), the [full transformer model](https://drive.google.com/open?id=12u1dOvexsnhKdJAW53ri4PC6gOyvo3ZT) or the [quantized transformer model](https://drive.google.com/file/d/1ZE3_AUzJWNvwVXzkvWI_4DS8NgniFhFB/view?usp=sharing) and uncompress on /data
+  1. Download the parameters for the [seq2seq mode](https://drive.google.com/open?id=1YmAgP_K75znP599HsW4kGlA2e-oeguhX), the [full transformer model](https://drive.google.com/open?id=12u1dOvexsnhKdJAW53ri4PC6gOyvo3ZT) or the [quantized transformer model](https://drive.google.com/file/d/1ZE3_AUzJWNvwVXzkvWI_4DS8NgniFhFB/view?usp=sharing) and uncompress on `./data`.
   2. Run the evaluation notebook.
 
 ## Credits

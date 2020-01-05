@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 import math, copy
 import numpy as np
-from settings import PAD_token, SOS_token
+from .settings import PAD_token, SOS_token
 
 class Embedder(nn.Module):
     def __init__(self, vocab_size, d_model):

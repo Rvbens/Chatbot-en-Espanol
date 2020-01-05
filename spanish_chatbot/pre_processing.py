@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import random
 import itertools
 import pickle
-from settings import *
+from .settings import *
 
 def process_punct(s):
     s = s.strip().lower().decode()
@@ -138,7 +138,7 @@ def generate_data(lines=LINES_USED,length=MAX_LENGTH,trim=MIN_COUNT, with_unk=WI
         pickle.dump(pairs, file)
 
     with open('data/voc.pkl', 'wb') as file:
-        voc.__module__ = "Voc"
+        #voc.__module__ = "Voc" #https://stackoverflow.com/questions/40287657/load-pickled-object-in-different-file-attribute-error
         pickle.dump(voc, file)
 
 
