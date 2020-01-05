@@ -6,9 +6,20 @@ Conversational agent in spanish done with deep learning and a dataset of movies 
 
 ## Installation
 
-Clone the repository or install with pip:
+Clone the repository and install:
+
+    pip install .
+
+You can alternatively install from pip, which doesn't download the exploratory notebooks:
 
     pip install spanish_chatbot
+
+For a quickstart:
+
+    from spanish_chatbot import TransformerChatbot
+    chatbot = TransformerChatbot(load_quant=True,use_cuda=False) # load pre-trained model
+    chatbot.evaluateOneInput('Hola')                             # one input, one output
+    chatbot.evaluateCycle()                                      # Cicle of input and outputs
 
 ## Model description
 
@@ -16,7 +27,6 @@ Clone the repository or install with pip:
 
   - [Loung attention](https://arxiv.org/abs/1508.04025)
   - [Output embedding with wegiht tying](http://www.aclweb.org/anthology/E17-2025)
-
 
 - Transformer. Features:
 
