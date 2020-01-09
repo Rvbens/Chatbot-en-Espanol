@@ -60,7 +60,7 @@ if __name__ == "__main__":
     parser.add_argument('--use_cuda', metavar='path', default="False", help='Use a gpu')
     args = parser.parse_args()
     if args.model == 'seq2seq':
-        from load_seq2seq import evaluateOneInput
+        from spanish_chatbot.load_seq2seq import evaluateOneInput
     elif args.model == 'transformer':
         from spanish_chatbot import TransformerChatbot
         chatbot = TransformerChatbot(data_path=args.data_path,load_quant=args.load_quant,use_cuda=args.use_cuda)
